@@ -27,9 +27,8 @@
         function(result) {
           $("#result-box").append('<p>URL: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+result.expires+'</p>');
 
-      }).fail(function() {
-        console.log("oops");
-        //$("#result-box").append('<p style="color: red"><i>Error: '+result.message+'</i></p>');
+      }).fail(function(result) {
+        $("#result-box").append('<p style="color: red"><i>Error: '+result.message+'</i></p>');
       })
     };
   </script>
