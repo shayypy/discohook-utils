@@ -1,0 +1,61 @@
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discohook URL Shortener</title>
+  <meta property="og:title" content="Discohook URL Shortener" />
+  <meta property="og:description" content="This site was created for use with bearger (https://bearger.ga/inv), but feel free to use it for anything." />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="https://msg.bearger.ga/" />
+  <meta property="og:image" content="https://cdn.discordapp.com/icons/668218342779256857/2b9cf3261cfef5b89e622cdc68dab6f3.png" />
+  <meta property="og:url" content="https://msg.bearger.ga/" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#58B9FF" />
+  <meta name="msapplication-TileColor" content="#58B9FF" />
+  <link rel="shortcut icon" type="image/png" href="https://cdn.discordapp.com/icons/668218342779256857/2b9cf3261cfef5b89e622cdc68dab6f3.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="application/ld+json">
+    {"url":"https://msg.bearger.ga/","@type":"WebSite","headline":"bearger","name":"shay","@context":"https://schema.org"}
+  </script>
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+  <script>
+    function shorten_link(discohook_url) {
+      $.post('https://share.discohook.app/create', {url: discohook_url},
+        function(result) {
+          $("#result-box").append('<p>URL: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+result.expires+'</p>');
+
+      }).fail(function() {
+        console.log("oops");
+        //$("#result-box").append('<p style="color: red"><i>Error: '+result.message+'</i></p>');
+      })
+    };
+  </script>
+  <div class="container-lg px-3 my-5 markdown-body">
+
+<div class="box">
+<h3>🔮 Discohook Shortener 🔗</h3>
+<textarea
+  id="discohook_input" placeholder="Discohook.org URL Here"
+  cols="50" rows="1" style="max-width: 100%">
+</textarea>
+<br><button onclick="shorten_link(discohook_input.value);">Shorten</button>
+</div>
+
+<div class="box">
+<h3>🔮 Result 📨</h3>
+<div id="result-box"></div>
+</div>
+
+<div class="box">
+<h3>🔮 More Discohook 📖</h3>
+<p>This website is not official, but is moreso just a workaround until vivi releases
+  this feature on the <a href="https://discohook.org">official website</a>.</p>
+</div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+</body>
+</html>
