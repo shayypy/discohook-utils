@@ -1,0 +1,79 @@
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discohook/Webhook Message Editor</title>
+  <meta property="og:title" content="Discohook/Webhook Message Editor" />
+  <meta property="og:description" content="Edit messages sent by webhooks! This site was created for use with bearger (https://bearger.ga/inv), but feel free to use it for anything." />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="https://msg.bearger.ga/edit" />
+  <meta property="og:image" content="https://cdn.discordapp.com/icons/668218342779256857/2b9cf3261cfef5b89e622cdc68dab6f3.png" />
+  <meta property="og:url" content="https://msg.bearger.ga/edit" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#58B9FF" />
+  <meta name="msapplication-TileColor" content="#58B9FF" />
+  <link rel="shortcut icon" type="image/png" href="https://cdn.discordapp.com/icons/668218342779256857/2b9cf3261cfef5b89e622cdc68dab6f3.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="application/ld+json">
+    {"url":"https://msg.bearger.ga/edit","@type":"WebSite","headline":"bearger","name":"shay","@context":"https://schema.org"}
+  </script>
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+  <script>
+    function edit_the_msg(discohook_url, webhook_url, message_id) {
+      var discohook_b64 = discohook_url.replace('https://discohook.org/message?=', '');
+      var decoded = atob(discohook_b64);
+      var data_in_json = JSON.parse(decoded);
+      var webhook_url_withmsg = 'discohook_url'+'/messages/'+message_id.toString()
+      $.patch(webhook_url_withmsg, data_in_json,
+        function(result) {
+          $("#result-box").append('<p>Shortened message with ID <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on discohook.org</a></p>');
+          $("#discohook_input").val('');
+
+      }).fail(function(result) {
+        $("#result-box").append('<p style="color: red"><i>Caught an error, this probably means you inputted a non-<u>discohook.org</u> URL, an invalid Discord webhook URL, or an invalid message ID, in the three respective inputs.</i></p>');
+      });
+    };
+  </script>
+  <div class="container-lg px-3 my-5 markdown-body">
+
+<div class="box">
+<h3>🔮 Webhook Message Editor 🔗</h3>
+<form>
+  <input type="url" required
+    id="discohook_input" placeholder="Discohook.org URL Here"
+    style="max-width: 100%"><br>
+  <input type="url" required
+    id="webhook_input" placeholder="Webhook URL Here"
+    style="max-width: 100%"><br>
+  <input type="number" required
+    id="message_id_input" placeholder="Message ID Here"
+    style="max-width: 100%"><br>
+
+  <input type="submit" name="Edit" onclick="edit_the_msg(discohook_input.value, webhook_input.value, message_id_input.value);">
+</form>
+</div>
+
+<div class="box">
+<h3>🔮 Result 📨</h3>
+<div id="result-box"></div>
+</div>
+
+<div class="box">
+<h3>🔮 More Discohook 📖</h3>
+<p>This website is not official, but is moreso just a workaround until vivi releases
+  this feature on the <a href="https://discohook.org">official website</a>.</p>
+</div>
+
+<div class="box">
+<h3>🔮 Source Code 🐙</h3>
+<p>This website is hosted on GitHub Pages, go check out the <a href="https://github.com/shayypy/discohook">
+  source code</a> if you want.</p>
+</div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+</body>
+</html>
