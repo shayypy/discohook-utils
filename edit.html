@@ -23,17 +23,17 @@
 <body>
   <script>
     function edit_the_msg(discohook_url, webhook_url, message_id) {
-      var discohook_b64 = discohook_url.replace('https://discohook.org/message?=', '');
-      var decoded = atob(discohook_b64);
-      var data_in_json = JSON.parse(decoded);
-      var webhook_url_withmsg = 'discohook_url'+'/messages/'+message_id.toString();
-      $.patch(webhook_url_withmsg, data_in_json,
-        function(result) {
+      $.ajax({
+        url: 'discohook_url'+'/messages/'+message_id.toString(),
+        type: 'PATCH',
+        data: JSON.parse(atob(discohook_url.replace('https://discohook.org/message?=', ''))),
+        success: function(result, textStatus, jqXhr) {
           $("#result-box").append('<p>Shortened message with ID <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on discohook.org</a></p>');
           $("#discohook_input").val('');
-
-      }).fail(function(result) {
-        $("#result-box").append('<p style="color: red"><i>Caught an error, this probably means you inputted a non-<u>discohook.org</u> URL, an invalid Discord webhook URL, or an invalid message ID, in the three respective inputs.</i></p>');
+        },
+        error: function(jqHXR, textStatus, errorThrown) {
+          $("#result-box").append('<p style="color: red"><i>Caught an error, this probably means you inputted a non-<u>discohook.org</u> URL, an invalid Discord webhook URL, or an invalid message ID, in the three respective inputs.</i></p>');
+        };
       });
     };
   </script>
