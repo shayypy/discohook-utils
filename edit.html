@@ -27,7 +27,7 @@
       $.ajax({
         url: 'discohook_url'+'/messages/'+message_id,
         type: 'PATCH',
-        data: JSON.parse(atob(discohook_url.replace('https://discohook.org/message?=', ''))),
+        data: atob(discohook_url.replace('https://discohook.org/message?=', '')), // req has to be string?
         success: function(result, textStatus, jqXhr) {
           $("#result-box").append('<p>Edited a message with ID '+message_id+'. New contents are visable <a href="'+discohook_url+'">here</a>');
           $("#discohook_input").val('');
