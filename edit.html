@@ -23,17 +23,21 @@
 <body>
   <script>
     function edit_the_msg(discohook_url, webhook_url, message_id) {
+      var message_id = message_id.toString();
       $.ajax({
-        url: 'discohook_url'+'/messages/'+message_id.toString(),
+        url: 'discohook_url'+'/messages/'+message_id,
         type: 'PATCH',
         data: JSON.parse(atob(discohook_url.replace('https://discohook.org/message?=', ''))),
         success: function(result, textStatus, jqXhr) {
-          $("#result-box").append('<p>Shortened message with ID <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on discohook.org</a></p>');
+          $("#result-box").append('<p>Edited a message with ID '+message_id.+'. New contents are visable <a href="'+discohook_url+'">here</a>');
           $("#discohook_input").val('');
         },
         error: function(jqHXR, textStatus, errorThrown) {
           $("#result-box").append('<p style="color: red"><i>Caught an error, this probably means you inputted a non-<u>discohook.org</u> URL, an invalid Discord webhook URL, or an invalid message ID, in the three respective inputs.</i></p>');
-        };
+        },
+        complete: function() {
+          console.log('Edited a webhook message with ID '+message_id)
+        }
       });
     };
   </script>
