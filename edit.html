@@ -25,7 +25,7 @@
     function edit_the_msg(discohook_url, webhook_url, message_id) {
       $.post('https://bearger.ga/api/discohook/edit', {discohook: discohook_url, discord: webhook_url, message: message_id},
         function(result) {
-          $("#result-box").append('<p>Edited a message with ID '+message_id+'. New contents are visable <a href="'+discohook_url+'">here</a>');
+          $("#result-box").append('<p>Edited a message with ID '+message_id+'. New contents are visible <a href="'+discohook_url+'">here</a>.');
           $("#discohook_input").val('');
 
       }).fail(function(result) {
