@@ -23,22 +23,14 @@
 <body>
   <script>
     function edit_the_msg(discohook_url, webhook_url, message_id) {
-      var message_id = message_id.toString();
-      $.ajax({
-        url: 'discohook_url'+'/messages/'+message_id,
-        type: 'PATCH',
-        data: atob(discohook_url.replace('https://discohook.org/message?=', '')), // req has to be string?
-        success: function(result, textStatus, jqXhr) {
+      $.post('https://bearger.ga/api/discohook/edit', {discohook: discohook_url, discord: webhook_url, message: message_id},
+        function(result) {
           $("#result-box").append('<p>Edited a message with ID '+message_id+'. New contents are visable <a href="'+discohook_url+'">here</a>');
           $("#discohook_input").val('');
-        },
-        error: function(jqHXR, textStatus, errorThrown) {
-          $("#result-box").append('<p style="color: red"><i>Caught an error, this probably means you inputted a non-<u>discohook.org</u> URL, an invalid Discord webhook URL, or an invalid message ID, in the three respective inputs.</i></p>');
-        },
-        complete: function() {
-          console.log('Edited a webhook message with ID '+message_id)
-        }
-      });
+
+      }).fail(function(result) {
+        $("#result-box").append('<p style="color: red"><i>Error: '+result.message+'. This probably means you inputted a non-<u>discohook.org</u> URL, an invalid webhook (<u>https://discord.com/api/webhooks/...</u>) URL, or an invalid message ID (~17-21 characters long).</i></p>');
+      })
     };
   </script>
   <div class="container-lg px-3 my-5 markdown-body">
