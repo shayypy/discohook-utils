@@ -26,7 +26,7 @@
       $.post('https://share.discohook.app/create', {url: discohook_url},
         function(result) {
           expires = new Date(result.expires).toString()
-          $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on discohook.org</a></p>');
+          $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on Discohook</a></p>');
           $("#discohook_input").val('');
 
       }).fail(function(result) {
@@ -53,7 +53,7 @@
 <div class="box">
 <h3>🔮 More Discohook 📖</h3>
 <p>This website is not official, but is moreso just a workaround until vivi releases
-  this feature on the <a href="https://discohook.org">official website</a>.<br><br>
+  this feature on the <a href="https://discohook.app">official website</a>.<br><br>
   Want to edit webhook messages using Discohook links? Take a look at <a href="/edit">this page!</a></p>
 </div>
 
