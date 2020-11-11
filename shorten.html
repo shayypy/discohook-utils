@@ -21,25 +21,24 @@
   <link rel="stylesheet" href="css.css">
 </head>
 <body>
-  <script>
-    function shorten_link(discohook_url) {
-      fetch('https://share.discohook.app/create', {
-        method: "POST".
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ url: discohook_url }),
-      }).then(response => response.json()).then(
-        function(result) {
-          expires = new Date(result.expires).toString()
-          $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on Discohook</a></p>');
-          $("#discohook_input").val('');
-
-      }).fail(function(result) {
-        $("#result-box").append('<p style="color: red"><i>Error: '+result.message+'. This probably means you inputted a non-<u>discohook.org</u> URL.</i></p>');
-      })
-    };
-  </script>
-  <div class="container-lg px-3 my-5 markdown-body">
-
+<script>
+  async function shorten_link(url) {
+    const response = await fetch('https://share.discohook.app/create', {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ url }),
+    })
+    const result = await response.json()
+    if (!response.ok) {
+      $("#result-box").append('<p style="color: red"><i>Error: '+result.message+'. This probably means you inputted a non-<u>discohook.org</u> URL.</i></p>')
+      return
+    }
+    const expires = new Date(result.expires).toString()
+    $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on Discohook</a></p>');
+    $("#discohook_input").val('');
+  }
+</script>
+<div class="container-lg px-3 my-5 markdown-body">
 <div class="box">
 <h3>🔮 Discohook Shortener 🔗</h3>
 <textarea
