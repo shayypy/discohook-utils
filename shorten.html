@@ -26,7 +26,7 @@
       fetch('https://share.discohook.app/create', {
         method: "POST".
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: discohook_url }),
       }).then(response => response.json()).then(
         function(result) {
           expires = new Date(result.expires).toString()
