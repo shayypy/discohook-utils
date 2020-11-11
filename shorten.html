@@ -34,7 +34,7 @@
       return
     }
     const expires = new Date(result.expires).toString()
-    $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+discohook_url+'">on Discohook</a></p>');
+    $("#result-box").append('<p>Shortened: <a href="'+result.url+'">'+result.url+'</a><br>Expires: '+expires+'<br>Original: <a href="'+url+'">on Discohook</a></p>');
     $("#discohook_input").val('');
   }
 </script>
