@@ -1,3 +1,5 @@
+This respository is deprecated, as these features have been implemented into Discohook officially. https://discohook.app
+
 # Discohook Utilities
 
 ### Features:
